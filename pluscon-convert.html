@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+
+  <link rel="stylesheet" href="css/style-normal.css" type="text/css" />
+  <link rel="stylesheet" href="css/style-convert.css" type="text/css" />
+  <link rel="stylesheet" href="css/style-dark.css" type="text/css" data-theme="dark" disabled />
+
+  <link rel="stylesheet" href="css/theme.css" type="text/css" />
+
+  <title>플러스콘 상세페이지</title>
+</head>
+
+<body >
+  <div id="index" class="index">
+    <div class="wrap wrap--flex">
+            <!--다크모드 테스트 토글-->
+            <label class="mode-toggle">
+                <input type="checkbox" id="modeToggle">
+                <span></span>
+            </label>
+
+      <header class="header">
+        <nav class="nav" aria-label="상단 내비게이션">
+          <ul class="nav__list">
+            <li class="nav__left">
+              <a class="nav__back" href="pluscon-shop.html" aria-label="뒤로가기">
+                <img class="nav__icon" src="imgs/chevron-left.svg" alt="" />
+              </a>
+            </li>
+            <li class="nav__center">
+              <p class="nav__title">포인트 전환하기</p>
+            </li>
+            <li class="nav__right" aria-hidden="true">
+              <span class="nav__spacer"></span>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <main class="content content--flex" id="content">
+<div class="detail-state detail-state--default convert-state" id="convertState">
+  <section class="convert-hero" aria-label="포인트 전환 안내">
+    <p class="convert-hero__title">
+      쇼플포인트를<br />
+      <span>겸사겸사 포인트</span>로 전환
+    </p>
+    <p class="convert-hero__point">보유 쇼플포인트 28,200P</p>
+  </section>
+
+<section class="convert-amount" aria-label="전환 포인트 입력값">
+  <p class="convert-amount__placeholder" id="convertAmountPlaceholder">얼마를 전환 하시겠어요?</p>
+
+  <div class="convert-amount__filled" id="convertAmountFilled" hidden>
+    <div class="convert-amount__row">
+      <p class="convert-amount__value" id="convertAmountValue">10,000P</p>
+      <p class="convert-amount__ko" id="convertAmountKorean">1만 포인트</p>
+    </div>
+
+    <p class="convert-amount__balance" id="convertBalanceText">잔액 포인트 18,200</p>
+
+    <div class="convert-amount__error" id="convertErrorText" hidden>
+      <img class="convert-amount__error-icon" src="imgs/info-red.svg" alt="" />
+      <p class="convert-amount__error-text">전환 포인트가 부족합니다</p>
+    </div>
+  </div>
+</section>
+
+  <section class="convert-keypad" aria-label="포인트 전환 금액 입력">
+    <div class="convert-keypad__quick">
+      <button type="button" class="convert-keypad__quick-btn" data-add="100">+100</button>
+      <button type="button" class="convert-keypad__quick-btn" data-add="500">+500</button>
+      <button type="button" class="convert-keypad__quick-btn" data-add="1000">+1,000</button>
+      <button type="button" class="convert-keypad__quick-btn" data-add="10000">+10,000</button>
+      <button type="button" class="convert-keypad__quick-btn" data-max="true">최대</button>
+    </div>
+
+    <div class="convert-keypad__number">
+      <button type="button" class="convert-keypad__num" data-key="1">1</button>
+      <button type="button" class="convert-keypad__num" data-key="2">2</button>
+      <button type="button" class="convert-keypad__num" data-key="3">3</button>
+      <button type="button" class="convert-keypad__num" data-key="4">4</button>
+      <button type="button" class="convert-keypad__num" data-key="5">5</button>
+      <button type="button" class="convert-keypad__num" data-key="6">6</button>
+      <button type="button" class="convert-keypad__num" data-key="7">7</button>
+      <button type="button" class="convert-keypad__num" data-key="8">8</button>
+      <button type="button" class="convert-keypad__num" data-key="9">9</button>
+      <button type="button" class="convert-keypad__num" data-key="00">00</button>
+      <button type="button" class="convert-keypad__num" data-key="0">0</button>
+      <button type="button" class="convert-keypad__num convert-keypad__delete" data-key="delete" aria-label="삭제">⌫</button>
+    </div>
+
+    <div class="convert-action">
+        <button type="button" class="convert-action__btn js-open-convert-sheet" id="convertSubmitBtn" disabled>전환하기</button>    </div>
+  </section>
+</div>
+
+<!-- 푸터 (기존 플러스콘 Footer 재사용) -->
+<!-- <footer class="footer-sign footer-sign--v2 footer-sign--push">
+  <div class="footer-sign__row">
+    <p class="footer-sign__brand">PINCRUX</p>
+    <p class="footer-sign__copy">Copyright PINCRUX. All rights reserved.</p>
+  </div>
+
+  <div class="footer-sign__links">
+    <a href="#" target="_blank" rel="noopener">이용문의</a>
+
+    <div class="footer-sign__policies" aria-label="약관 링크">
+      <a class="footer-sign__policy" href="#" target="_blank" rel="noopener">이용약관</a>
+      <a class="footer-sign__policy footer-sign__policy--strong" href="#" target="_blank" rel="noopener">개인정보처리방침</a>
+    </div>
+  </div>
+</footer> -->
+<!-- 포인트 전환 확인 바텀시트 -->
+<div class="convert-sheet" id="convertSheet" aria-hidden="true">
+  <div class="convert-sheet__dim" data-convert-sheet-close></div>
+
+  <section class="convert-sheet__panel" role="dialog" aria-modal="true" aria-labelledby="convertSheetTitle">
+    <div class="convert-sheet__content">
+      <div class="convert-sheet__head">
+        <div class="convert-sheet__title-wrap">
+          <div class="convert-sheet__title-group">
+            <p class="convert-sheet__label">쇼플포인트</p>
+            <p class="convert-sheet__title" id="convertSheetTitle"><span id="convertSheetAmount">10,000P</span>를 전환할까요?</p>
+          </div>
+
+          <button type="button" class="convert-sheet__close" aria-label="닫기" data-convert-sheet-close>
+            <img class="convert-sheet__close-icon" src="imgs/xicon-b.svg" alt="" />
+          </button>
+        </div>
+
+        <p class="convert-sheet__desc">
+          전환 후 잔여 포인트는<br />
+          <span id="convertSheetBalance">18,200P</span>예요.
+        </p>
+      </div>
+    </div>
+
+    <div class="convert-sheet__actions">
+      <button type="button" class="convert-sheet__btn convert-sheet__btn--cancel" data-convert-sheet-close>취소</button>
+      <button type="button" class="convert-sheet__btn convert-sheet__btn--confirm js-complete-convert">전환하기</button>
+    </div>
+  </section>
+</div>
+<!-- 전환 완료 화면 -->
+<div class="convert-complete-state is-hidden" id="convertCompleteState">
+  <section class="convert-complete" aria-label="포인트 전환 완료">
+    <div class="convert-complete__icon" aria-hidden="true">
+      <img class="convert-complete__icon-img" src="imgs/icon-check.png" alt="" />
+    </div>
+
+    <p class="convert-complete__title">전환이 완료됐어요!</p>
+    <p class="convert-complete__date" id="convertCompleteDate">2026년 3월 29일 오전 12시 38분</p>
+  </section>
+</div>
+<!-- 포인트 전환 실패 팝업 -->
+<div class="convert-fail-modal is-active" id="convertFailModal" aria-hidden="false">
+  <div class="convert-fail-modal__dim" data-convert-fail-close></div>
+
+  <section class="convert-fail-modal__panel" role="dialog" aria-modal="true" aria-labelledby="convertFailTitle">
+    <div class="convert-fail-modal__icon" aria-hidden="true">
+      <img class="convert-fail-modal__icon-img" src="imgs/icon-no-earn2.svg" alt="" />
+    </div>
+
+    <div class="convert-fail-modal__text">
+      <p class="convert-fail-modal__title" id="convertFailTitle">전환 실패</p>
+      <p class="convert-fail-modal__desc">
+        일시적인 오류로 전환에 실패했습니다.<br />
+        포인트는 차감되지 않았어요. 잠시 후 다시 시도해 주세요.
+      </p>
+    </div>
+
+    <button type="button" class="convert-fail-modal__btn" data-convert-fail-close>확인</button>
+  </section>
+</div>
+      </main>
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const amountPlaceholder = document.getElementById("convertAmountPlaceholder");
+  const amountFilled = document.getElementById("convertAmountFilled");
+  const amountValue = document.getElementById("convertAmountValue");
+  const amountKorean = document.getElementById("convertAmountKorean");
+  const balanceText = document.getElementById("convertBalanceText");
+  const errorText = document.getElementById("convertErrorText");
+  const submitBtn = document.getElementById("convertSubmitBtn");
+
+  const convertSheet = document.getElementById("convertSheet");
+  const convertOpenBtn = document.querySelector(".js-open-convert-sheet");
+  const convertSheetAmount = document.getElementById("convertSheetAmount");
+  const convertSheetBalance = document.getElementById("convertSheetBalance");
+
+  const maxPoint = 28200;
+  let amount = 0;
+
+  function formatPoint(value) {
+    return Number(value).toLocaleString("ko-KR");
+  }
+
+  function toKoreanPoint(value) {
+    const num = Number(value) || 0;
+
+    if (num === 0) return "0 포인트";
+
+    const parts = [];
+    const man = Math.floor(num / 10000);
+    let rest = num % 10000;
+
+    const chun = Math.floor(rest / 1000);
+    rest = rest % 1000;
+
+    const baek = Math.floor(rest / 100);
+    rest = rest % 100;
+
+    if (man) parts.push(man + "만");
+    if (chun) parts.push(chun + "천");
+    if (baek) parts.push(baek + "백");
+    if (rest) parts.push(rest);
+
+    return parts.join(" ") + " 포인트";
+  }
+
+  function updateConvertAmount() {
+    if (!amount) {
+      if (amountPlaceholder) amountPlaceholder.hidden = false;
+      if (amountFilled) amountFilled.hidden = true;
+      if (submitBtn) submitBtn.disabled = true;
+      return;
+    }
+
+    const isOverPoint = amount > maxPoint;
+    const balance = Math.max(maxPoint - amount, 0);
+
+    if (amountPlaceholder) amountPlaceholder.hidden = true;
+    if (amountFilled) amountFilled.hidden = false;
+    if (amountValue) amountValue.textContent = formatPoint(amount) + "P";
+
+    if (isOverPoint) {
+      if (amountKorean) amountKorean.hidden = true;
+      if (balanceText) balanceText.hidden = true;
+      if (errorText) errorText.hidden = false;
+      if (submitBtn) submitBtn.disabled = true;
+      return;
+    }
+
+    if (amountKorean) {
+      amountKorean.hidden = false;
+      amountKorean.textContent = toKoreanPoint(amount);
+    }
+
+    if (balanceText) {
+      balanceText.hidden = false;
+      balanceText.textContent = "잔액 포인트 " + formatPoint(balance);
+    }
+
+    if (errorText) errorText.hidden = true;
+    if (submitBtn) submitBtn.disabled = false;
+  }
+
+  function openConvertSheet() {
+    if (!convertSheet || !amount || amount > maxPoint) return;
+
+    const balance = Math.max(maxPoint - amount, 0);
+
+    if (convertSheetAmount) {
+      convertSheetAmount.textContent = formatPoint(amount) + "P";
+    }
+
+    if (convertSheetBalance) {
+      convertSheetBalance.textContent = formatPoint(balance) + "P";
+    }
+
+    convertSheet.classList.add("is-active");
+    convertSheet.setAttribute("aria-hidden", "false");
+    document.body.classList.add("is-sheet-open");
+  }
+
+  function closeConvertSheet() {
+    if (!convertSheet) return;
+
+    convertSheet.classList.remove("is-active");
+    convertSheet.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("is-sheet-open");
+  }
+
+  document.querySelectorAll(".convert-keypad__quick-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      if (btn.dataset.max === "true") {
+        amount = maxPoint;
+      } else {
+        amount += Number(btn.dataset.add || 0);
+      }
+
+      updateConvertAmount();
+    });
+  });
+
+  document.querySelectorAll(".convert-keypad__num").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const key = btn.dataset.key;
+
+      if (key === "delete") {
+        amount = Math.floor(amount / 10);
+        updateConvertAmount();
+        return;
+      }
+
+      const nextValue = String(amount || "") + key;
+      amount = Number(nextValue);
+
+      updateConvertAmount();
+    });
+  });
+
+  if (convertOpenBtn) {
+    convertOpenBtn.addEventListener("click", openConvertSheet);
+  }
+
+  document.querySelectorAll("[data-convert-sheet-close]").forEach(function (btn) {
+    btn.addEventListener("click", closeConvertSheet);
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeConvertSheet();
+    }
+  });
+
+  const completeBtn = document.querySelector(".js-complete-convert");
+const convertState = document.querySelector(".convert-state");
+const completeState = document.getElementById("convertCompleteState");
+const completeDate = document.getElementById("convertCompleteDate");
+
+function getConvertCompleteDateText() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const date = now.getDate();
+  const hours = now.getHours();
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const period = hours < 12 ? "오전" : "오후";
+  const displayHour = hours % 12 || 12;
+
+  return `${year}년 ${month}월 ${date}일 ${period} ${displayHour}시 ${minutes}분`;
+}
+
+function showCompleteState() {
+  closeConvertSheet();
+
+  if (convertState) {
+    convertState.classList.add("is-hidden");
+  }
+
+  if (completeState) {
+    completeState.classList.remove("is-hidden");
+  }
+
+  if (completeDate) {
+    completeDate.textContent = getConvertCompleteDateText();
+  }
+}
+
+if (completeBtn) {
+  completeBtn.addEventListener("click", showCompleteState);
+}
+
+
+/* 포인트 전환 실패 팝업 */
+const convertFailModal = document.getElementById("convertFailModal");
+
+function openConvertFailModal() {
+  if (!convertFailModal) return;
+
+  convertFailModal.classList.add("is-active");
+  convertFailModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("is-sheet-open");
+}
+
+function closeConvertFailModal() {
+  if (!convertFailModal) return;
+
+  convertFailModal.classList.remove("is-active");
+  convertFailModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("is-sheet-open");
+}
+
+document.querySelectorAll("[data-convert-fail-close]").forEach(function (btn) {
+  btn.addEventListener("click", closeConvertFailModal);
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closeConvertFailModal();
+  }
+});
+
+
+  /* 다크모드 테스트 */
+  const toggle = document.getElementById("modeToggle");
+  const darkCssList = document.querySelectorAll('link[data-theme="dark"]');
+
+  if (toggle && darkCssList.length) {
+    const savedMode = localStorage.getItem("darkMode") === "on";
+    toggle.checked = savedMode;
+
+    darkCssList.forEach(function (link) {
+      link.disabled = !savedMode;
+    });
+
+    toggle.addEventListener("change", function () {
+      const isDark = this.checked;
+
+      darkCssList.forEach(function (link) {
+        link.disabled = !isDark;
+      });
+
+      localStorage.setItem("darkMode", isDark ? "on" : "off");
+    });
+  }
+
+  updateConvertAmount();
+});
+</script>
+</body>
+
+</html>

@@ -5,12 +5,19 @@
   <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
   <link rel="stylesheet" href="css/style-normal.css" type="text/css" />
   <link rel="stylesheet" href="css/notice.css" type="text/css" />
-  <link rel="stylesheet" href="css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="css/style-dark.css" type="text/css" data-theme="dark" disabled />
+
+  <link rel="stylesheet" href="css/theme-wo.css" type="text/css" />
   <title>쇼핑플러스</title>
 </head>
 <body >
   <div id="index" class="index">
     <div class="wrap">
+            <!--다크모드 테스트 토글-->
+            <label class="mode-toggle">
+                <input type="checkbox" id="modeToggle">
+                <span></span>
+            </label>
       <header class="header">
         <!-- 상단 네비게이션 -->
         <nav class="nav" aria-label="상단 내비게이션">
@@ -64,10 +71,12 @@
             </p>
             </div>
 
-            <div class="notice-schedule__time-box">
-            <p class="notice-schedule__time-label">⏰ 오픈 예정 시간</p>
-            <p class="notice-schedule__time-value">다음 달 1일 00시</p>
-            </div>
+<div class="notice-schedule__time-box">
+  <p class="notice-schedule__time-value">
+    <img class="notice-schedule__time-icon" src="imgs/notice-w.svg" alt="" aria-hidden="true" />
+    <span class="notice-schedule__time-text">오픈 예정 시간 다음 달 1일 00시</span>
+  </p>
+</div>
         </div>
     </section>
   </div>
@@ -123,3 +132,31 @@
     </div>
   </div>
 </body>
+
+<script>
+          // 다크모드 테스트
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.getElementById('modeToggle');
+    const darkCssList = document.querySelectorAll('link[data-theme="dark"]');
+
+    if (!toggle || !darkCssList.length) return;
+
+    const savedMode = localStorage.getItem('darkMode') === 'on';
+    toggle.checked = savedMode;
+
+    darkCssList.forEach(link => {
+      link.disabled = !savedMode;
+    });
+
+    toggle.addEventListener('change', function () {
+      const isDark = this.checked;
+
+      darkCssList.forEach(link => {
+        link.disabled = !isDark;
+      });
+
+      localStorage.setItem('darkMode', isDark ? 'on' : 'off');
+    });
+  });
+</script>
